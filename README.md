@@ -90,7 +90,7 @@ Este projeto implementa uma API simples de gerenciamento de contatos utilizando 
 ### Excluir Contato
 - **Rota:** `DELETE /contacts?id={id}`
 - **Descrição:** Remove um contato do sistema.
-- **Resposta:** 200 OK (sem corpo de resposta)
+- **Resposta:** 200 OK 
 
 ## Melhorias Futuras
 - Persistência em banco de dados (exemplo: SQLite, PostgreSQL, MongoDB)
