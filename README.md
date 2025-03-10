@@ -1,9 +1,11 @@
-# Gerador de Senha Aleatória
+# Contact API
 
-Este projeto implementa um gerador de senhas aleatórias utilizando a linguagem Go. A senha gerada inclui caracteres minúsculos, maiúsculos, números e símbolos especiais, com a possibilidade de personalizar o comprimento da senha entre 8 e 32 caracteres.
+Este projeto implementa uma API simples de gerenciamento de contatos utilizando a linguagem Go e o pacote `net/http`.
 
 ## Tecnologias Utilizadas
 - Go
+- `net/http`
+- `encoding/json`
 
 ## Como Executar o Projeto
 
@@ -20,39 +22,80 @@ Este projeto implementa um gerador de senhas aleatórias utilizando a linguagem 
    go run main.go
    ```
 
-4. **A aplicação pedirá para inserir o número de caracteres desejado para a senha. O número deve ser entre 8 e 32 caracteres.**
+4. **A API será iniciada na porta 8080**.
 
-5. **A senha gerada será exibida no terminal.**
+## Endpoints Disponíveis
 
-## Como Funciona
+### Criar Contato
+- **Rota:** `POST /contacts`
+- **Descrição:** Cria um novo contato.
+- **Requisição:**
+  ```json
+  {
+    "name": "teste",
+    "email": "teste@mail.com",
+    "phone": "123456789"
+  }
+  ```
+- **Resposta:**
+  ```json
+  {
+    "id": 1,
+    "name": "joao",
+    "email": "joao@mail.com",
+    "phone": "123456789"
+  }
+  ```
 
-O programa solicita ao usuário a quantidade de caracteres para a senha, validando se o valor está entre 8 e 32. Em seguida, gera uma senha com os seguintes critérios:
-- Pelo menos 1 caractere minúsculo.
-- Pelo menos 1 caractere maiúsculo.
-- Pelo menos 1 caractere numérico.
-- Pelo menos 1 caractere especial (como `!@#$%^&*`).
-- O restante dos caracteres são aleatórios, escolhidos de uma lista de caracteres válidos.
+### Listar Contatos
+- **Rota:** `GET /contacts`
+- **Descrição:** Retorna todos os contatos.
+- **Resposta:**
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "joao",
+      "email": "joao@mail.com",
+      "phone": "123456789"
+    }
+  ]
+  ```
 
-A senha gerada é embaralhada para garantir que os caracteres obrigatórios não fiquem em posições fixas.
+### Buscar Contato por ID
+- **Rota:** `GET /contacts?id={id}`
+- **Descrição:** Retorna um contato específico.
+- **Exemplo de Resposta:**
+  ```json
+  {
+    "id": 1,
+    "name": "joao",
+    "email": "joao@mail.com",
+    "phone": "123456789"
+  }
+  ```
+### Atualizar Contato
+- **Rota:** `PUT /contacts?id={id}`
+- **Descrição:** Atualiza um contato existente.
+- **Requisição:**
+  ```json
+  {
+    "name": "john",
+    "email": "John@mail.com",
+    "phone": "987654321"
+  }
+  ```
+- **Resposta:** 200 OK (sem corpo de resposta)
 
-## Exemplo de Uso
-
-1. O programa solicitará: **"Quantos caracteres você deseja para a senha?"**
-2. O usuário insere um número, por exemplo: **12**.
-3. A senha gerada será exibida, por exemplo:
-   ```
-   Sua senha gerada é:
-   X1!vG7*bQz
-   ```
+### Excluir Contato
+- **Rota:** `DELETE /contacts?id={id}`
+- **Descrição:** Remove um contato do sistema.
+- **Resposta:** 200 OK (sem corpo de resposta)
 
 ## Melhorias Futuras
-- Adicionar a opção de personalizar os tipos de caracteres incluídos na senha.
-- Implementar uma interface gráfica para facilitar o uso.
-- Adicionar a opção de salvar senhas geradas.
+- Persistência em banco de dados (exemplo: SQLite, PostgreSQL, MongoDB)
+- Autenticação e autorização
+- Implementação de testes unitários
 
 ## Licença
 Este projeto está sob a licença MIT.
-
----
-
-Esse `README.md` agora reflete o funcionamento do gerador de senhas em Go, conforme o código fornecido. Se precisar de mais alguma alteração ou detalhes, é só avisar!
